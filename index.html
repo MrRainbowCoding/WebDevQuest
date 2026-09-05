@@ -65,6 +65,130 @@
             min-width: 180px;
         }
 
+        #mode-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        #mode-panel label,
+        .eyebrow {
+            color: var(--success);
+            font-family: var(--font-code);
+            font-size: 0.68rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        #mode-select {
+            margin: 0;
+            min-width: 150px;
+            width: 100%;
+        }
+
+        #mode-description {
+            max-width: 210px;
+            color: #9db5b2;
+            font-size: 0.72rem;
+            line-height: 1.35;
+        }
+
+        [data-mode="portfolio"] #mode-description {
+            color: #e9c99f;
+        }
+
+        [data-mode="resources"] #mode-description {
+            color: #9edfd8;
+        }
+
+        #resources-panel {
+            display: none;
+            padding: 24px;
+            background: #152428;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .resources-heading,
+        #resource-form {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .resources-heading {
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .resources-heading h2 {
+            margin: 5px 0 0;
+            color: #f7fbfa;
+            font-size: 1.35rem;
+        }
+
+        #resource-form input:not([type="file"]) {
+            min-width: 0;
+            flex: 1;
+            padding: 11px 12px;
+            background: #0c1518;
+            color: var(--text-color);
+            border: 1px solid #46636a;
+            border-radius: 5px;
+        }
+
+        .upload-control {
+            padding: 10px 12px;
+            border: 1px dashed #46636a;
+            border-radius: 5px;
+            color: #b9cfcb;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .upload-control input {
+            display: none;
+        }
+
+        .resource-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .resource-card {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            min-height: 70px;
+            padding: 12px;
+            background: #1d383d;
+            border: 1px solid #365960;
+            border-radius: 7px;
+        }
+
+        .resource-card img {
+            width: 38px;
+            height: 38px;
+            object-fit: cover;
+            border-radius: 6px;
+            background: #0c1518;
+        }
+
+        .resource-card a {
+            overflow: hidden;
+            color: #dff8f4;
+            font-weight: 600;
+            text-decoration: none;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .resource-card a:hover {
+            color: var(--success);
+        }
+
         #progress-label {
             display: flex;
             justify-content: space-between;
@@ -506,6 +630,36 @@
             background: #f4f1e8;
         }
 
+        [data-mode="portfolio"] {
+            --accent: #d99a5b;
+            --accent-hover: #bd7d42;
+            --success: #e8c07a;
+            --success-hover: #d3a85d;
+            --border-color: #5b4939;
+        }
+
+        [data-mode="portfolio"] body,
+        body[data-mode="portfolio"] {
+            background: radial-gradient(circle at 85% 0%, rgba(217, 154, 91, 0.16), transparent 34%), linear-gradient(135deg, #1d1715 0%, #2a211b 55%, #33271f 100%);
+        }
+
+        body[data-mode="portfolio"] #active-lesson-container,
+        body[data-mode="portfolio"] #resources-panel {
+            background: #2b211c;
+        }
+
+        body[data-mode="portfolio"] #preview-container {
+            background: #fbf5e9;
+        }
+
+        body[data-mode="resources"] #active-lesson-container {
+            background: #102c32;
+        }
+
+        body[data-mode="resources"] #preview-container {
+            background: #e7f5f2;
+        }
+
         @media (max-width: 767px) {
             header {
                 grid-template-columns: 1fr 1fr;
@@ -515,6 +669,11 @@
 
             header h1 {
                 grid-column: 1 / -1;
+            }
+
+            #mode-panel,
+            #progress-panel {
+                grid-column: span 1;
             }
 
             #objective-panel {
@@ -538,6 +697,97 @@
             #preview-container {
                 height: 52vh;
             }
+
+            #resources-panel {
+                padding: 18px;
+            }
+
+            .resources-heading,
+            #resource-form {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            #resource-form input:not([type="file"]),
+            .upload-control,
+            #resource-form button {
+                width: 100%;
+            }
+        }
+
+        body {
+            height: auto;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        main {
+            min-height: 620px;
+            min-width: 0;
+            overflow: visible;
+        }
+
+        #editor-container,
+        #preview-container,
+        #active-lesson-container,
+        #completed-code {
+            min-width: 0;
+        }
+
+        #completed-code {
+            min-height: 0;
+            overflow: auto;
+            overflow-wrap: anywhere;
+        }
+
+        #active-lesson-container {
+            overflow: auto;
+        }
+
+        #lesson-code {
+            max-width: 100%;
+        }
+
+        #resource-form {
+            flex-wrap: wrap;
+        }
+
+        #resource-form input:not([type="file"]) {
+            min-width: min(220px, 100%);
+        }
+
+        @media (max-width: 767px) {
+            main {
+                min-height: 0;
+                overflow: visible;
+            }
+
+            #editor-container,
+            #preview-container {
+                max-width: 100%;
+            }
+        }
+
+        @media (min-width: 768px) {
+            main {
+                flex: 0 0 auto;
+                height: calc(100vh - 150px);
+                min-height: 560px;
+                max-height: calc(100vh - 150px);
+                overflow: hidden;
+            }
+
+            #editor-container,
+            #preview-container {
+                height: 100%;
+                overflow: hidden;
+            }
+
+            #active-lesson-container {
+                min-height: 0;
+                overflow-y: auto;
+            }
         }
     </style>
 </head>
@@ -545,8 +795,17 @@
 
     <header>
         <h1>Web Dev Quest</h1>
+        <div id="mode-panel">
+            <label for="mode-select">Learning mode</label>
+            <select id="mode-select" onchange="changeMode(this.value)">
+                <option value="basic">Basic</option>
+                <option value="portfolio">Portfolio</option>
+                <option value="resources">Resources</option>
+            </select>
+            <div id="mode-description">Learn HTML and CSS fundamentals one mission at a time.</div>
+        </div>
         <div id="progress-panel" aria-label="Mission progress">
-            <div id="progress-label"><span>Progress</span><span id="progress-count">0 / 20</span></div>
+            <div id="progress-label"><span>Progress</span><span id="progress-count">0 / 40</span></div>
             <div id="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="progress-bar"></div></div>
         </div>
         <div id="objective-panel">Loading mission...</div>
@@ -572,6 +831,23 @@
             <iframe id="live-frame" sandbox="allow-scripts allow-modals"></iframe>
         </div>
     </main>
+
+    <section id="resources-panel" aria-labelledby="resources-title">
+        <div class="resources-heading">
+            <div>
+                <span class="eyebrow">Resources mode</span>
+                <h2 id="resources-title">Build your resource shelf</h2>
+            </div>
+            <button id="download-html-btn" type="button" onclick="downloadResourceHTML()">Download HTML</button>
+        </div>
+        <form id="resource-form" onsubmit="addResource(event)">
+            <input id="resource-title" required placeholder="Resource name" aria-label="Resource name">
+            <input id="resource-url" required type="url" placeholder="https://example.com" aria-label="Resource URL">
+            <label class="upload-control">Choose icon<input id="resource-icon" type="file" accept="image/*" aria-label="Resource icon"></label>
+            <button type="submit">Add resource</button>
+        </form>
+        <div id="resource-list" class="resource-list"></div>
+    </section>
 
     <script>
         const coreLessons = [
@@ -695,6 +971,161 @@
                     2: ['...', 'footer', 'header', 'small']
                 },
                 answers: { 1: 'footer', 2: 'footer' }
+            },
+            {
+                id: 'core-11',
+                title: 'Mission 11: Add a Navigation Area',
+                objective: 'Use a nav element to group the links that help visitors move around your site.',
+                type: 'html',
+                template: `<[1]><a href="#home">Home</a></[2]>`,
+                dropdowns: {
+                    1: ['...', 'nav', 'header', 'main'],
+                    2: ['...', 'nav', 'header', 'main']
+                },
+                answers: { 1: 'nav', 2: 'nav' }
+            },
+            {
+                id: 'core-12',
+                title: 'Mission 12: Set a Page Width',
+                objective: 'Use max-width to keep your page content comfortable to read on large screens.',
+                type: 'css',
+                template: `body {\n  [1]: [2];\n}`,
+                dropdowns: {
+                    1: ['...', 'max-width', 'min-height', 'overflow'],
+                    2: ['...', '900px', '100vh', 'hidden']
+                },
+                answers: { 1: 'max-width', 2: '900px' }
+            },
+            {
+                id: 'core-13',
+                title: 'Mission 13: Add a Content Article',
+                objective: 'Use an article element for a self-contained piece of content.',
+                type: 'html',
+                template: `<[1]>A short story about my project</[2]>`,
+                dropdowns: {
+                    1: ['...', 'article', 'section', 'aside'],
+                    2: ['...', 'article', 'section', 'aside']
+                },
+                answers: { 1: 'article', 2: 'article' }
+            },
+            {
+                id: 'core-14',
+                title: 'Mission 14: Choose a Text Size',
+                objective: 'Use font-size to make your subtitle easy to scan.',
+                type: 'css',
+                template: `h2 {\n  [1]: [2];\n}`,
+                dropdowns: {
+                    1: ['...', 'font-size', 'font-style', 'font-family'],
+                    2: ['...', '1.5rem', 'italic', 'serif']
+                },
+                answers: { 1: 'font-size', 2: '1.5rem' }
+            },
+            {
+                id: 'core-15',
+                title: 'Mission 15: Add a Small Note',
+                objective: 'Use the small element for supporting text that is less prominent.',
+                type: 'html',
+                template: `<[1]>Last updated today</[2]>`,
+                dropdowns: {
+                    1: ['...', 'small', 'strong', 'mark'],
+                    2: ['...', 'small', 'strong', 'mark']
+                },
+                answers: { 1: 'small', 2: 'small' }
+            },
+            {
+                id: 'core-16',
+                title: 'Mission 16: Align the Layout',
+                objective: 'Use text-align to place your footer message in the center.',
+                type: 'css',
+                template: `footer {\n  [1]: [2];\n}`,
+                dropdowns: {
+                    1: ['...', 'text-align', 'vertical-align', 'align-items'],
+                    2: ['...', 'center', 'middle', 'stretch']
+                },
+                answers: { 1: 'text-align', 2: 'center' }
+            },
+            {
+                id: 'core-17',
+                title: 'Mission 17: Emphasize a Word',
+                objective: 'Use the strong element to give an important phrase extra emphasis.',
+                type: 'html',
+                template: `<p>This project is <[1]>worth sharing</[2]>.</p>`,
+                dropdowns: {
+                    1: ['...', 'strong', 'em', 'mark'],
+                    2: ['...', 'strong', 'em', 'mark']
+                },
+                answers: { 1: 'strong', 2: 'strong' }
+            },
+            {
+                id: 'core-18',
+                title: 'Mission 18: Add a Figure',
+                objective: 'Use a figure element to group visual content and its context.',
+                type: 'html',
+                template: `<[1]>A visual project preview</[2]>`,
+                dropdowns: {
+                    1: ['...', 'figure', 'picture', 'aside'],
+                    2: ['...', 'figure', 'picture', 'aside']
+                },
+                answers: { 1: 'figure', 2: 'figure' }
+            },
+            {
+                id: 'core-19',
+                title: 'Mission 19: Set a Font Weight',
+                objective: 'Use font-weight to make your main heading more confident.',
+                type: 'css',
+                template: `h1 {\n  [1]: [2];\n}`,
+                dropdowns: {
+                    1: ['...', 'font-weight', 'font-style', 'letter-spacing'],
+                    2: ['...', '700', 'italic', '0.05em']
+                },
+                answers: { 1: 'font-weight', 2: '700' }
+            },
+            {
+                id: 'core-20',
+                title: 'Mission 20: Add a Caption',
+                objective: 'Use figcaption to label a visual project detail.',
+                type: 'html',
+                template: `<figure><figcaption>[1]</figcaption></figure>`,
+                dropdowns: {
+                    1: ['...', 'Project preview', 'Project title', 'Project link']
+                },
+                answers: { 1: 'Project preview' }
+            },
+            {
+                id: 'core-21',
+                title: 'Mission 21: Add Letter Spacing',
+                objective: 'Use letter-spacing to give your navigation label a little air.',
+                type: 'css',
+                template: `nav {\n  [1]: [2];\n}`,
+                dropdowns: {
+                    1: ['...', 'letter-spacing', 'word-spacing', 'text-indent'],
+                    2: ['...', '0.04em', '1rem', '10px']
+                },
+                answers: { 1: 'letter-spacing', 2: '0.04em' }
+            },
+            {
+                id: 'core-22',
+                title: 'Mission 22: Add a Time Marker',
+                objective: 'Use the time element to mark when a project was published.',
+                type: 'html',
+                template: `<[1] datetime="2026-09-05">Published today</[2]>`,
+                dropdowns: {
+                    1: ['...', 'time', 'date', 'small'],
+                    2: ['...', 'time', 'date', 'small']
+                },
+                answers: { 1: 'time', 2: 'time' }
+            },
+            {
+                id: 'core-23',
+                title: 'Mission 23: Add a Clean Shadow',
+                objective: 'Use box-shadow to separate the main content from the background.',
+                type: 'css',
+                template: `main {\n  [1]: [2];\n}`,
+                dropdowns: {
+                    1: ['...', 'box-shadow', 'text-shadow', 'filter'],
+                    2: ['...', '0 8px 24px rgba(0,0,0,0.15)', 'bold', 'blur(4px)']
+                },
+                answers: { 1: 'box-shadow', 2: '0 8px 24px rgba(0,0,0,0.15)' }
             }
         ];
 
@@ -828,8 +1259,192 @@
                     3: ['...', 'a', 'button', 'address']
                 },
                 answers: { 1: 'a', 2: 'href', 3: 'a' }
+            },
+            {
+                id: 'elec-11',
+                title: 'Change the Cursor',
+                objective: 'Use cursor to show that your button is ready to be clicked.',
+                type: 'css',
+                template: `button {\n  [1]: [2];\n}`,
+                dropdowns: {
+                    1: ['...', 'cursor', 'pointer-events', 'user-select'],
+                    2: ['...', 'pointer', 'none', 'text']
+                },
+                answers: { 1: 'cursor', 2: 'pointer' }
+            },
+            {
+                id: 'elec-12',
+                title: 'Add a Quote',
+                objective: 'Use a blockquote element to feature an inspiring project quote.',
+                type: 'html',
+                template: `<[1]>Keep learning by building.</[2]>`,
+                dropdowns: {
+                    1: ['...', 'blockquote', 'q', 'cite'],
+                    2: ['...', 'blockquote', 'q', 'cite']
+                },
+                answers: { 1: 'blockquote', 2: 'blockquote' }
+            },
+            {
+                id: 'elec-13',
+                title: 'Add a Hover Color',
+                objective: 'Use a hover selector to make links respond when visitors point at them.',
+                type: 'css',
+                template: `a:hover {\n  [1]: [2];\n}`,
+                dropdowns: {
+                    1: ['...', 'color', 'background', 'text-decoration'],
+                    2: ['...', '#007acc', '#ffffff', 'none']
+                },
+                answers: { 1: 'color', 2: '#007acc' }
+            },
+            {
+                id: 'elec-14',
+                title: 'Add a Contact Address',
+                objective: 'Use the address element to mark contact information for your site.',
+                type: 'html',
+                template: `<[1]>hello@example.com</[2]>`,
+                dropdowns: {
+                    1: ['...', 'address', 'footer', 'aside'],
+                    2: ['...', 'address', 'footer', 'aside']
+                },
+                answers: { 1: 'address', 2: 'address' }
+            },
+            {
+                id: 'elec-15',
+                title: 'Add a Soft Transition',
+                objective: 'Use transition to make style changes feel smoother.',
+                type: 'css',
+                template: `button {\n  [1]: [2];\n}`,
+                dropdowns: {
+                    1: ['...', 'transition', 'transform', 'animation'],
+                    2: ['...', 'background-color 0.2s', 'scale(1.02)', 'fade 1s']
+                },
+                answers: { 1: 'transition', 2: 'background-color 0.2s' }
+            },
+            {
+                id: 'elec-16',
+                title: 'Add a Definition',
+                objective: 'Use a definition list to explain an important web term.',
+                type: 'html',
+                template: `<[1]><dt>HTML</dt><[2]>The structure of a webpage</[3]></[4]>`,
+                dropdowns: {
+                    1: ['...', 'dl', 'ul', 'ol'],
+                    2: ['...', 'dd', 'dt', 'li'],
+                    3: ['...', 'dd', 'dt', 'li'],
+                    4: ['...', 'dl', 'ul', 'ol']
+                },
+                answers: { 1: 'dl', 2: 'dd', 3: 'dd', 4: 'dl' }
+            },
+            {
+                id: 'elec-17',
+                title: 'Add a Focus Outline',
+                objective: 'Use outline to make keyboard focus easier to see.',
+                type: 'css',
+                template: `button:focus {\n  [1]: [2];\n}`,
+                dropdowns: {
+                    1: ['...', 'outline', 'border', 'box-shadow'],
+                    2: ['...', '2px solid #f2b56b', 'none', '0 0 4px #4ecdc4']
+                },
+                answers: { 1: 'outline', 2: '2px solid #f2b56b' }
             }
         ];
+
+        const modeProfiles = {
+            basic: {
+                description: 'Learn HTML and CSS fundamentals one mission at a time.',
+                objectivePrefix: '',
+                previewLabel: 'Live Preview',
+                previewStyles: 'body { color: #26383c; }'
+            },
+            portfolio: {
+                description: 'Turn each mission into a polished personal portfolio.',
+                objectivePrefix: 'Portfolio brief: ',
+                previewLabel: 'Portfolio Canvas',
+                previewStyles: 'body { color: #33271f; } h1, h2 { letter-spacing: 0.02em; } a { color: #9a5c2e; }'
+            },
+            resources: {
+                description: 'Build a useful learning hub, then export your resource shelf.',
+                objectivePrefix: 'Resource brief: ',
+                previewLabel: 'Resource Preview',
+                previewStyles: 'body { color: #12383d; } a { color: #137f78; }'
+            }
+        };
+
+        const modeMissionNames = {
+            portfolio: [
+                'Define Your Personal Brand', 'Write Your Bio', 'Choose a Portfolio Color', 'Frame Your Hero',
+                'Add a Case Study Link', 'Introduce Your Services', 'Create a Content Block', 'Name Your Specialty',
+                'Set Your Reading Rhythm', 'Sign Your Work', 'Build Your Navigation', 'Set Your Canvas Width',
+                'Tell a Project Story', 'Tune Your Display Type', 'Add a Career Note', 'Center Your Footer',
+                'Highlight Your Strength', 'Showcase a Featured Piece', 'Strengthen Your Headline', 'Caption Your Work',
+                'Space Your Navigation', 'Date Your Latest Work', 'Lift Your Main Content', 'Present Your Visuals',
+                'Set Your Portfolio Weight', 'Label Your Work', 'Polish Your Project List', 'Add Your Contact Link',
+                'Set Your Portfolio Palette', 'Create a Download CTA', 'Round Your Project Cards', 'Add Your Skills List',
+                'Add Depth to Your Hero', 'Add Context to a Link', 'Highlight a Portfolio Update', 'Add Your Contact Card',
+                'Make Actions Feel Responsive', 'Define Your Toolkit', 'Focus Your Keyboard States', 'Publish Your Portfolio'
+            ],
+            resources: [
+                'Create a Resource Hub', 'Describe Your Learning Goal', 'Set a Hub Background', 'Frame a Resource Group',
+                'Link a Documentation Site', 'Add a Learning Category', 'Group Related Links', 'Name a Topic',
+                'Improve Resource Readability', 'Add a Hub Footer', 'Build Resource Navigation', 'Set a Shelf Width',
+                'Write a Resource Summary', 'Size Your Resource Headings', 'Add a Freshness Note', 'Align Your Shelf Footer',
+                'Emphasize a Recommended Link', 'Feature a Visual Guide', 'Strengthen Your Hub Title', 'Caption a Tutorial',
+                'Space Your Resource Nav', 'Date a Saved Resource', 'Lift Your Resource Cards', 'Add a Resource Preview',
+                'Set Resource Importance', 'Label a Resource Snapshot', 'Build a Learning Checklist', 'Add an Email Resource',
+                'Choose a Resource Accent', 'Create a Download Note', 'Round Resource Cards', 'List Your Study Topics',
+                'Add Depth to the Shelf', 'Add a Resource Tooltip', 'Highlight a New Resource', 'Add a Contributor Contact',
+                'Smooth Resource Actions', 'Define a Web Term', 'Focus Resource Controls', 'Publish Your Resource Shelf'
+            ]
+        };
+
+        function createModeLessons(mode, lessons, offset) {
+            if (mode === 'basic') {
+                return lessons;
+            }
+
+            return lessons.map((lesson, index) => {
+                const missionName = modeMissionNames[mode][offset + index];
+                const modeLabel = mode === 'portfolio' ? 'Portfolio' : 'Resources';
+                return {
+                    ...lesson,
+                    template: customizeTemplate(lesson.template, mode),
+                    title: `${modeLabel} Mission ${offset + index + 1}: ${missionName}`,
+                    objective: mode === 'portfolio'
+                        ? `Shape your public portfolio by learning how to ${missionName.toLowerCase()}.`
+                        : `Organize your learning hub by learning how to ${missionName.toLowerCase()}.`
+                };
+            });
+        }
+
+        function customizeTemplate(template, mode) {
+            const copy = mode === 'portfolio'
+                ? {
+                    'Welcome to my Custom Site!': 'Welcome to my Portfolio',
+                    'I am building this website by choosing the correct code.': 'I design thoughtful web experiences.',
+                    'A new section of my site': 'Selected work and case studies',
+                    'My Web Development Journey': 'About my work',
+                    'Built with Web Dev Quest': 'Available for new projects',
+                    'Last updated today': 'Open to thoughtful collaborations',
+                    'worth sharing': 'worth showcasing',
+                    'Keep learning by building.': 'Good work deserves a clear story.',
+                    'hello@example.com': 'hello@myportfolio.com'
+                }
+                : {
+                    'Welcome to my Custom Site!': 'My Learning Resource Hub',
+                    'I am building this website by choosing the correct code.': 'A curated shelf for my web development studies.',
+                    'A new section of my site': 'HTML, CSS, and JavaScript resources',
+                    'My Web Development Journey': 'Topics I am studying',
+                    'Built with Web Dev Quest': 'Keep learning, keep building',
+                    'Last updated today': 'Updated with my latest study links',
+                    'worth sharing': 'worth bookmarking',
+                    'Keep learning by building.': 'A useful resource is worth revisiting.',
+                    'hello@example.com': 'study@example.com'
+                };
+
+            return Object.entries(copy).reduce((result, [source, replacement]) => result.replaceAll(source, replacement), template);
+        }
+
+        let activeCoreLessons = coreLessons;
+        let activeElectiveLessons = electiveLessons;
 
         let completedHTML = "";
         let completedCSS = "";
@@ -837,17 +1452,32 @@
         let isCorePhase = true;
         let currentLesson = null;
         let currentLessonId = null;
-        let availableElectives = [...electiveLessons];
+        let availableElectives = [...activeElectiveLessons];
         let completedMissionCount = 0;
+        let completedMissionIds = [];
+        let currentMode = 'basic';
+        let resourceLinks = [];
         const totalMissionCount = coreLessons.length + electiveLessons.length;
-        const saveKey = 'webDevQuestProgressV2';
+        const saveKey = 'webDevQuestProgressV3';
+        const modePreferenceKey = `${saveKey}:selected-mode`;
+
+        function getModeSaveKey(mode) {
+            return `${saveKey}:${mode}`;
+        }
 
         function initGame() {
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
             restoreGame();
+            setActiveCatalog();
+            resetScrollPosition();
+            document.getElementById('mode-select').value = currentMode;
+            applyModeProfile();
             if (isCorePhase) {
-                loadLesson(coreLessons[coreIndex]);
+                loadLesson(activeCoreLessons[coreIndex]);
             } else {
-                const savedLesson = [...coreLessons, ...electiveLessons].find(lesson => lesson.id === currentLessonId);
+                const savedLesson = [...activeCoreLessons, ...activeElectiveLessons].find(lesson => lesson.id === currentLessonId);
                 if (savedLesson) {
                     loadLesson(savedLesson);
                 } else {
@@ -856,22 +1486,100 @@
             }
             updateCompletedCodeDisplay();
             updateProgress();
+            renderResources();
+            setTimeout(() => window.scrollTo(0, 0), 0);
+        }
+
+        function changeMode(mode) {
+            saveGame();
+            currentMode = mode;
+            localStorage.setItem(modePreferenceKey, mode);
+            resetModeState();
+            restoreGame();
+            setActiveCatalog();
+            applyModeProfile();
+            document.getElementById('resources-panel').style.display = 'none';
+            resetScrollPosition();
+            if (isCorePhase) {
+                loadLesson(activeCoreLessons[coreIndex]);
+            } else {
+                const savedLesson = [...activeCoreLessons, ...activeElectiveLessons].find(lesson => lesson.id === currentLessonId);
+                if (savedLesson) {
+                    loadLesson(savedLesson);
+                } else {
+                    showElectiveMenu();
+                }
+            }
+            updateCompletedCodeDisplay();
+            updateProgress();
+            saveGame();
+        }
+
+        function resetModeState() {
+            completedHTML = '';
+            completedCSS = '';
+            coreIndex = 0;
+            isCorePhase = true;
+            currentLessonId = null;
+            currentLesson = null;
+            availableElectives = [...activeElectiveLessons];
+            completedMissionCount = 0;
+            completedMissionIds = [];
+            resourceLinks = [];
+        }
+
+        function resetScrollPosition() {
+            window.scrollTo(0, 0);
+            requestAnimationFrame(() => window.scrollTo(0, 0));
+            const completedCode = document.getElementById('completed-code');
+            const lessonContainer = document.getElementById('active-lesson-container');
+            if (completedCode) {
+                completedCode.scrollTop = 0;
+            }
+            if (lessonContainer) {
+                lessonContainer.scrollTop = 0;
+            }
+        }
+
+        function setActiveCatalog() {
+            activeCoreLessons = createModeLessons(currentMode, coreLessons, 0);
+            activeElectiveLessons = createModeLessons(currentMode, electiveLessons, coreLessons.length);
+            if (Array.isArray(availableElectives)) {
+                const availableIds = availableElectives.map(lesson => lesson.id);
+                availableElectives = activeElectiveLessons.filter(lesson => availableIds.includes(lesson.id));
+            }
+        }
+
+        function applyModeProfile() {
+            const profile = modeProfiles[currentMode];
+            document.body.dataset.mode = currentMode;
+            document.getElementById('mode-description').innerText = profile.description;
+            document.getElementById('preview-label').innerText = profile.previewLabel;
         }
 
         function saveGame() {
-            localStorage.setItem(saveKey, JSON.stringify({
+            localStorage.setItem(getModeSaveKey(currentMode), JSON.stringify({
                 completedHTML,
                 completedCSS,
                 coreIndex,
                 isCorePhase,
                 currentLessonId,
                 availableElectiveIds: availableElectives.map(lesson => lesson.id),
-                completedMissionCount
+                completedMissionCount,
+                completedMissionIds,
+                currentMode,
+                resourceLinks
             }));
+            localStorage.setItem(modePreferenceKey, currentMode);
         }
 
         function restoreGame() {
-            const savedState = localStorage.getItem(saveKey);
+            const savedMode = localStorage.getItem(modePreferenceKey);
+            if (['basic', 'portfolio', 'resources'].includes(savedMode)) {
+                currentMode = savedMode;
+            }
+
+            const savedState = localStorage.getItem(getModeSaveKey(currentMode));
             if (!savedState) {
                 return;
             }
@@ -883,13 +1591,17 @@
                 coreIndex = Number.isInteger(state.coreIndex) ? Math.min(Math.max(state.coreIndex, 0), coreLessons.length - 1) : 0;
                 isCorePhase = state.isCorePhase !== false;
                 currentLessonId = typeof state.currentLessonId === 'string' ? state.currentLessonId : null;
-                completedMissionCount = Number.isInteger(state.completedMissionCount) ? Math.min(Math.max(state.completedMissionCount, 0), totalMissionCount) : 0;
+                completedMissionIds = Array.isArray(state.completedMissionIds) ? state.completedMissionIds : [];
+                completedMissionCount = Number.isInteger(state.completedMissionCount)
+                    ? Math.min(Math.max(state.completedMissionCount, 0), totalMissionCount)
+                    : Math.min(completedMissionIds.length, totalMissionCount);
+                resourceLinks = Array.isArray(state.resourceLinks) ? state.resourceLinks : [];
 
                 if (Array.isArray(state.availableElectiveIds)) {
-                    availableElectives = electiveLessons.filter(lesson => state.availableElectiveIds.includes(lesson.id));
+                    availableElectives = activeElectiveLessons.filter(lesson => state.availableElectiveIds.includes(lesson.id));
                 }
             } catch (error) {
-                localStorage.removeItem(saveKey);
+                localStorage.removeItem(getModeSaveKey(currentMode));
             }
         }
 
@@ -900,11 +1612,55 @@
             document.getElementById('progress-track').setAttribute('aria-valuenow', percentage);
         }
 
+        function renderResources() {
+            const list = document.getElementById('resource-list');
+            list.innerHTML = resourceLinks.map(resource => `
+                <div class="resource-card">
+                    <img src="${resource.icon || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 40 40%22%3E%3Crect width=%2240%22 height=%2240%22 rx=%228%22 fill=%22%2329434a%22/%3E%3Cpath d=%22M12 20h16M20 12v16%22 stroke=%22%23f2b56b%22 stroke-width=%223%22/%3E%3C/svg%3E'}" alt="">
+                    <a href="${resource.url}" target="_blank" rel="noreferrer">${resource.title}</a>
+                </div>`).join('');
+        }
+
+        function addResource(event) {
+            event.preventDefault();
+            const title = document.getElementById('resource-title').value.trim();
+            const url = document.getElementById('resource-url').value.trim();
+            const file = document.getElementById('resource-icon').files[0];
+            const finish = icon => {
+                resourceLinks.push({ title, url, icon });
+                event.target.reset();
+                renderResources();
+                saveGame();
+            };
+
+            if (!file) {
+                finish('');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = () => finish(reader.result);
+            reader.readAsDataURL(file);
+        }
+
+        function downloadResourceHTML() {
+            const cards = resourceLinks.map(resource => `<a class="resource" href="${resource.url}" target="_blank"><img src="${resource.icon}" alt=""><span>${resource.title}</span></a>`).join('');
+            const html = `<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>My Resource Shelf</title><style>body{margin:0;padding:48px;background:#101f23;color:#e8f4f1;font:16px system-ui,sans-serif}main{max-width:900px;margin:auto}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}.resource{display:flex;align-items:center;gap:12px;padding:18px;background:#1d383d;border:1px solid #365960;border-radius:10px;color:inherit;text-decoration:none}.resource img{width:42px;height:42px;object-fit:cover;border-radius:8px}</style></head><body><main><h1>My Resource Shelf</h1><div class="grid">${cards}</div></main></body></html>`;
+            const blob = new Blob([html], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'my-resource-shelf.html';
+            link.click();
+            URL.revokeObjectURL(link.href);
+        }
+
         function loadLesson(lesson) {
             currentLesson = lesson;
             currentLessonId = lesson.id;
-            document.getElementById('objective-panel').innerText = `${lesson.title} - ${lesson.objective}`;
-            
+            const profile = modeProfiles[currentMode];
+            applyModeProfile();
+            document.getElementById('objective-panel').innerText = `${profile.objectivePrefix}${lesson.title} - ${lesson.objective}`;
+
             // Hide elective menu, show lesson code area
             document.getElementById('elective-menu').style.display = 'none';
             document.getElementById('lesson-code').style.display = 'block';
@@ -924,6 +1680,7 @@
             htmlString = htmlString.replace(/\n/g, '<br>').replace(/  /g, '&nbsp;&nbsp;');
             document.getElementById('lesson-code').innerHTML = htmlString;
 
+            updateCompletedCodeDisplay();
             updatePreview();
         }
 
@@ -975,9 +1732,9 @@
                 <html>
                 <head>
                     <style>
-                        body { 
-                            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-                            padding: 30px; 
+                        body {
+                            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                            padding: 30px;
                             transition: all 0.4s ease;
                             margin: 0;
                             min-height: 100vh;
@@ -993,6 +1750,7 @@
                             transition: background-color 0.2s;
                         }
                         button:hover { background-color: #005f9e; }
+                        ${modeProfiles[currentMode].previewStyles}
                         ${previewCSS}
                     </style>
                 </head>
@@ -1018,6 +1776,9 @@
             }
 
             completedMissionCount++;
+            if (!completedMissionIds.includes(currentLesson.id)) {
+                completedMissionIds.push(currentLesson.id);
+            }
             updateCompletedCodeDisplay();
             updateProgress();
 
@@ -1025,7 +1786,7 @@
             if (isCorePhase) {
                 coreIndex++;
                 if (coreIndex < coreLessons.length) {
-                    loadLesson(coreLessons[coreIndex]);
+                    loadLesson(activeCoreLessons[coreIndex]);
                 } else {
                     isCorePhase = false;
                     currentLessonId = null;
@@ -1041,12 +1802,12 @@
 
         function updateCompletedCodeDisplay() {
             let displayString = "";
-            
+
             if (completedCSS) {
                 displayString += `<span class="code-comment">/* --- Your Stylesheet (CSS) --- */</span>\n`;
                 displayString += `&lt;style&gt;\n${completedCSS.trim()}\n&lt;/style&gt;\n\n`;
             }
-            
+
             if (completedHTML) {
                 displayString += `<span class="code-comment">&lt;!-- Your Webpage (HTML) --&gt;</span>\n`;
                 displayString += completedHTML.trim().replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -1058,11 +1819,16 @@
 
             const container = document.getElementById('completed-code');
             container.innerHTML = displayString;
-            container.scrollTop = container.scrollHeight; // Auto-scroll to bottom
+            container.scrollTop = 0;
         }
 
         function showElectiveMenu() {
-            document.getElementById('objective-panel').innerText = "Hybrid Mode: Choose your own path! Pick a module below to enhance your site.";
+            const modeMessage = currentMode === 'portfolio'
+                ? 'Portfolio mode: shape a polished personal showcase with every mission.'
+                : currentMode === 'resources'
+                    ? 'Resources mode: finish the missions, then build and download your resource shelf.'
+                    : 'Basic mode: choose your own path and enhance your site.';
+            document.getElementById('objective-panel').innerText = modeMessage;
             document.getElementById('lesson-code').style.display = 'none';
             document.getElementById('next-btn').style.display = 'none';
             document.getElementById('elective-menu').style.display = 'flex';
@@ -1072,6 +1838,10 @@
 
             if (availableElectives.length === 0) {
                 btnContainer.innerHTML = `<p style="color: var(--success); font-weight: bold; font-size: 1.1rem; padding: 10px 0;">🎉 Congratulations! You have completed all available modules and built a fantastic website.</p>`;
+                if (currentMode === 'resources') {
+                    document.getElementById('resources-panel').style.display = 'block';
+                    renderResources();
+                }
                 return;
             }
 
@@ -1082,17 +1852,22 @@
                 btn.onclick = () => selectElective(elective.id);
                 btnContainer.appendChild(btn);
             });
-            
+
+            requestAnimationFrame(() => {
+                const lessonContainer = document.getElementById('active-lesson-container');
+                lessonContainer.scrollTop = 0;
+            });
+
             updatePreview(); // Clean refresh using purely completed code
         }
 
         function selectElective(id) {
             const selectedIndex = availableElectives.findIndex(e => e.id === id);
             const selectedLesson = availableElectives[selectedIndex];
-            
+
             // Remove the selected lesson from the pool
             availableElectives.splice(selectedIndex, 1);
-            
+
             loadLesson(selectedLesson);
             saveGame();
         }
