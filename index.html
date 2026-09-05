@@ -86,6 +86,19 @@
             width: 100%;
         }
 
+        #reset-btn {
+            padding: 8px 12px;
+            background: transparent;
+            border: 1px solid #6b4b4b;
+            color: #e7b0a8;
+            font-size: 0.78rem;
+        }
+
+        #reset-btn:hover {
+            background: #4a2929;
+            border-color: #b97870;
+        }
+
         #mode-description {
             max-width: 210px;
             color: #9db5b2;
@@ -803,6 +816,7 @@
                 <option value="resources">Resources</option>
             </select>
             <div id="mode-description">Learn HTML and CSS fundamentals one mission at a time.</div>
+            <button id="reset-btn" type="button" onclick="resetProgress()">Reset this mode</button>
         </div>
         <div id="progress-panel" aria-label="Mission progress">
             <div id="progress-label"><span>Progress</span><span id="progress-count">0 / 40</span></div>
@@ -1471,6 +1485,7 @@
             }
             restoreGame();
             setActiveCatalog();
+            rebuildCompletedCode();
             resetScrollPosition();
             document.getElementById('mode-select').value = currentMode;
             applyModeProfile();
@@ -1497,6 +1512,7 @@
             resetModeState();
             restoreGame();
             setActiveCatalog();
+            rebuildCompletedCode();
             applyModeProfile();
             document.getElementById('resources-panel').style.display = 'none';
             resetScrollPosition();
@@ -1548,6 +1564,51 @@
                 const availableIds = availableElectives.map(lesson => lesson.id);
                 availableElectives = activeElectiveLessons.filter(lesson => availableIds.includes(lesson.id));
             }
+        }
+
+        function resetProgress() {
+            localStorage.removeItem(getModeSaveKey(currentMode));
+            resetModeState();
+            setActiveCatalog();
+            rebuildCompletedCode();
+            applyModeProfile();
+            document.getElementById('resources-panel').style.display = 'none';
+            loadLesson(activeCoreLessons[0]);
+            updateCompletedCodeDisplay();
+            updateProgress();
+            resetScrollPosition();
+            saveGame();
+        }
+
+        function rebuildCompletedCode() {
+            if (!completedMissionIds.length) {
+                return;
+            }
+
+            let rebuiltHTML = '';
+            let rebuiltCSS = '';
+            const lessons = [...activeCoreLessons, ...activeElectiveLessons];
+
+            completedMissionIds.forEach(id => {
+                const lesson = lessons.find(candidate => candidate.id === id);
+                if (!lesson) {
+                    return;
+                }
+
+                let correctCode = lesson.template;
+                Object.entries(lesson.answers).forEach(([key, answer]) => {
+                    correctCode = correctCode.replace(`[${key}]`, answer);
+                });
+
+                if (lesson.type === 'html') {
+                    rebuiltHTML += correctCode + '\n\n';
+                } else {
+                    rebuiltCSS += correctCode + '\n\n';
+                }
+            });
+
+            completedHTML = rebuiltHTML;
+            completedCSS = rebuiltCSS;
         }
 
         function applyModeProfile() {
@@ -1842,6 +1903,7 @@
                     document.getElementById('resources-panel').style.display = 'block';
                     renderResources();
                 }
+                updatePreview();
                 return;
             }
 
