@@ -61,6 +61,34 @@
             letter-spacing: -0.5px;
         }
 
+        #progress-panel {
+            min-width: 180px;
+        }
+
+        #progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            color: #9cdcfe;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        #progress-track {
+            height: 8px;
+            overflow: hidden;
+            background-color: #333;
+            border-radius: 4px;
+        }
+
+        #progress-bar {
+            width: 0;
+            height: 100%;
+            background-color: var(--success);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
         #objective-panel {
             background-color: rgba(0, 122, 204, 0.15);
             padding: 12px 18px;
@@ -276,12 +304,251 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+
+        :root {
+            --bg-color: #0d171a;
+            --panel-bg: #152428;
+            --text-color: #dce8e6;
+            --accent: #4ecdc4;
+            --accent-hover: #36aaa2;
+            --success: #f2b56b;
+            --success-hover: #df9d51;
+            --border-color: #29434a;
+            --font-main: 'Trebuchet MS', 'Segoe UI', sans-serif;
+            --font-code: Consolas, 'Liberation Mono', monospace;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 12% 0%, rgba(78, 205, 196, 0.12), transparent 32%),
+                linear-gradient(135deg, #0d171a 0%, #101f23 52%, #15252a 100%);
+            color: var(--text-color);
+        }
+
+        header {
+            display: grid;
+            grid-template-columns: minmax(190px, 0.7fr) minmax(180px, 0.8fr) minmax(280px, 1.8fr);
+            gap: 24px;
+            align-items: center;
+            padding: 18px 26px;
+            background: rgba(13, 23, 26, 0.94);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+        }
+
+        header h1 {
+            color: #f7fbfa;
+            font-size: clamp(1.3rem, 2vw, 1.8rem);
+            letter-spacing: 0;
+        }
+
+        header h1::before {
+            content: '01';
+            display: block;
+            margin-bottom: 5px;
+            color: var(--success);
+            font-family: var(--font-code);
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+        }
+
+        #progress-panel {
+            min-width: 0;
+            padding: 11px 14px;
+            background: rgba(21, 36, 40, 0.9);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        #progress-label {
+            color: #b9cfcb;
+            font-family: var(--font-code);
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        #progress-track {
+            height: 6px;
+            background: #26383c;
+        }
+
+        #progress-bar {
+            background: var(--success);
+        }
+
+        #objective-panel {
+            max-width: none;
+            padding: 14px 17px;
+            background: rgba(78, 205, 196, 0.09);
+            border: 1px solid rgba(78, 205, 196, 0.42);
+            border-radius: 8px;
+            color: #dff8f4;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        main {
+            gap: 14px;
+            padding: 14px;
+            background: transparent;
+        }
+
+        #editor-container,
+        #preview-container {
+            width: auto;
+            height: auto;
+            min-width: 0;
+            min-height: 0;
+            align-self: stretch;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+        }
+
+        #editor-container {
+            flex: 1.05;
+            background: #101b1e;
+        }
+
+        #preview-container {
+            flex: 0.95;
+            background: #f4f1e8;
+        }
+
+        #completed-code {
+            padding: 22px 24px;
+            background: #101b1e;
+            color: #b8e4df;
+            font-size: 0.84rem;
+            line-height: 1.7;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .code-comment {
+            color: #84b99f;
+        }
+
+        #active-lesson-container {
+            min-height: 250px;
+            padding: 28px 24px;
+            background: #152428;
+            box-shadow: none;
+        }
+
+        #lesson-code {
+            color: #f0b28e;
+            font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+            line-height: 2.35;
+            overflow-wrap: anywhere;
+        }
+
+        select {
+            min-width: 76px;
+            padding: 6px 26px 6px 10px;
+            background: #0c1518;
+            color: var(--accent);
+            border: 1px solid #46636a;
+            border-radius: 5px;
+            font-size: 0.92rem;
+        }
+
+        select.correct {
+            border-color: var(--success);
+            color: var(--success);
+            background: rgba(242, 181, 107, 0.1);
+        }
+
+        #next-btn {
+            margin-top: 24px;
+            padding: 11px 17px;
+            background: var(--success);
+            color: #172024;
+            border-radius: 5px;
+        }
+
+        #next-btn:hover {
+            background: var(--success-hover);
+        }
+
+        #elective-menu h3 {
+            color: #f7fbfa;
+            font-size: 1rem;
+        }
+
+        .elective-btn {
+            background: #1d383d;
+            border: 1px solid #365960;
+            color: #e1f5f1;
+            border-radius: 5px;
+        }
+
+        .elective-btn:hover {
+            background: #285057;
+            transform: translateX(3px);
+        }
+
+        #preview-label {
+            top: 14px;
+            right: 14px;
+            padding: 7px 10px;
+            background: #152428;
+            border: 1px solid #365960;
+            border-radius: 5px;
+            color: #bfe5df;
+            font-family: var(--font-code);
+            font-size: 0.66rem;
+            letter-spacing: 0.1em;
+        }
+
+        iframe {
+            background: #f4f1e8;
+        }
+
+        @media (max-width: 767px) {
+            header {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                padding: 16px;
+            }
+
+            header h1 {
+                grid-column: 1 / -1;
+            }
+
+            #objective-panel {
+                grid-column: 1 / -1;
+            }
+
+            main {
+                gap: 10px;
+                padding: 10px;
+                overflow-y: auto;
+            }
+
+            #editor-container,
+            #preview-container {
+                flex: none;
+                width: 100%;
+                height: 62vh;
+                min-height: 390px;
+            }
+
+            #preview-container {
+                height: 52vh;
+            }
+        }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Web Dev Quest</h1>
+        <div id="progress-panel" aria-label="Mission progress">
+            <div id="progress-label"><span>Progress</span><span id="progress-count">0 / 20</span></div>
+            <div id="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="progress-bar"></div></div>
+        </div>
         <div id="objective-panel">Loading mission...</div>
     </header>
 
@@ -343,6 +610,91 @@
                     2: ['...', '#f0f8ff', '20px', 'bold', 'center']
                 },
                 answers: { 1: 'background-color', 2: '#f0f8ff' }
+            },
+            {
+                id: 'core-4',
+                title: 'Mission 4: Add a Card Border',
+                objective: 'Use a border to give your heading a clear visual boundary.',
+                type: 'css',
+                template: `h1 {\n  [1]: [2];\n}`,
+                dropdowns: {
+                    1: ['...', 'border', 'padding', 'color'],
+                    2: ['...', '2px solid #007acc', '20px', '#007acc']
+                },
+                answers: { 1: 'border', 2: '2px solid #007acc' }
+            },
+            {
+                id: 'core-5',
+                title: 'Mission 5: Add a Link',
+                objective: 'Use an anchor (a) tag and an href attribute to create a useful link.',
+                type: 'html',
+                template: `<[1] [2]="https://developer.mozilla.org/">Learn more about HTML</[3]>`,
+                dropdowns: {
+                    1: ['...', 'a', 'button', 'p'],
+                    2: ['...', 'href', 'src', 'target'],
+                    3: ['...', 'a', 'button', 'p']
+                },
+                answers: { 1: 'a', 2: 'href', 3: 'a' }
+            },
+            {
+                id: 'core-6',
+                title: 'Mission 6: Add a Page Section',
+                objective: 'Use a section element to group related content on your page.',
+                type: 'html',
+                template: `<[1]>A new section of my site</[2]>`,
+                dropdowns: {
+                    1: ['...', 'section', 'div', 'article'],
+                    2: ['...', 'section', 'div', 'article']
+                },
+                answers: { 1: 'section', 2: 'section' }
+            },
+            {
+                id: 'core-7',
+                title: 'Mission 7: Add Spacing',
+                objective: 'Use padding to give the page content some breathing room.',
+                type: 'css',
+                template: `body {\n  [1]: [2];\n}`,
+                dropdowns: {
+                    1: ['...', 'padding', 'margin', 'display'],
+                    2: ['...', '24px', 'center', 'flex']
+                },
+                answers: { 1: 'padding', 2: '24px' }
+            },
+            {
+                id: 'core-8',
+                title: 'Mission 8: Add a Subtitle',
+                objective: 'Use a smaller heading to introduce a second level of content.',
+                type: 'html',
+                template: `<[1]>My Web Development Journey</[2]>`,
+                dropdowns: {
+                    1: ['...', 'h2', 'h1', 'p'],
+                    2: ['...', 'h2', 'h1', 'p']
+                },
+                answers: { 1: 'h2', 2: 'h2' }
+            },
+            {
+                id: 'core-9',
+                title: 'Mission 9: Improve Readability',
+                objective: 'Use line-height to make paragraphs easier to read.',
+                type: 'css',
+                template: `p {\n  [1]: [2];\n}`,
+                dropdowns: {
+                    1: ['...', 'line-height', 'font-weight', 'text-align'],
+                    2: ['...', '1.6', 'bold', 'center']
+                },
+                answers: { 1: 'line-height', 2: '1.6' }
+            },
+            {
+                id: 'core-10',
+                title: 'Mission 10: Add a Footer',
+                objective: 'Use a footer element to add a closing note to your website.',
+                type: 'html',
+                template: `<[1]>Built with Web Dev Quest</[2]>`,
+                dropdowns: {
+                    1: ['...', 'footer', 'header', 'small'],
+                    2: ['...', 'footer', 'header', 'small']
+                },
+                answers: { 1: 'footer', 2: 'footer' }
             }
         ];
 
@@ -396,6 +748,86 @@
                     2: ['...', 'center', 'Arial', 'flex']
                 },
                 answers: { 1: 'text-align', 2: 'center' }
+            },
+            {
+                id: 'elec-5',
+                title: 'Round the Corners',
+                objective: 'Use border-radius to soften the corners of your heading.',
+                type: 'css',
+                template: `h1 {\n  [1]: [2];\n}`,
+                dropdowns: {
+                    1: ['...', 'border-radius', 'box-shadow', 'opacity'],
+                    2: ['...', '12px', '4px', '0.8']
+                },
+                answers: { 1: 'border-radius', 2: '12px' }
+            },
+            {
+                id: 'elec-6',
+                title: 'Add a List',
+                objective: 'Use an unordered list and list items to show three goals.',
+                type: 'html',
+                template: `<[1]><[2]>Learn HTML</[3]><[4]>Practice CSS</[5]><[6]>Build projects</[7]></[8]>`,
+                dropdowns: {
+                    1: ['...', 'ul', 'ol', 'li'],
+                    2: ['...', 'li', 'ul', 'ol'],
+                    3: ['...', 'li', 'ul', 'ol'],
+                    4: ['...', 'li', 'ul', 'ol'],
+                    5: ['...', 'li', 'ul', 'ol'],
+                    6: ['...', 'li', 'ul', 'ol'],
+                    7: ['...', 'li', 'ul', 'ol'],
+                    8: ['...', 'ul', 'ol', 'li']
+                },
+                answers: { 1: 'ul', 2: 'li', 3: 'li', 4: 'li', 5: 'li', 6: 'li', 7: 'li', 8: 'ul' }
+            },
+            {
+                id: 'elec-7',
+                title: 'Add a Shadow',
+                objective: 'Use box-shadow to make the heading stand out from the page.',
+                type: 'css',
+                template: `h1 {\n  [1]: [2];\n}`,
+                dropdowns: {
+                    1: ['...', 'box-shadow', 'text-shadow', 'filter'],
+                    2: ['...', '0 2px 8px rgba(0,0,0,0.2)', 'bold', 'blur(2px)']
+                },
+                answers: { 1: 'box-shadow', 2: '0 2px 8px rgba(0,0,0,0.2)' }
+            },
+            {
+                id: 'elec-8',
+                title: 'Add a Tooltip',
+                objective: 'Use the title attribute to give your link helpful extra context.',
+                type: 'html',
+                template: `<[1] href="https://developer.mozilla.org/" [2]="Visit MDN">HTML reference</[3]>`,
+                dropdowns: {
+                    1: ['...', 'a', 'button', 'p'],
+                    2: ['...', 'title', 'alt', 'label'],
+                    3: ['...', 'a', 'button', 'p']
+                },
+                answers: { 1: 'a', 2: 'title', 3: 'a' }
+            },
+            {
+                id: 'elec-9',
+                title: 'Highlight an Announcement',
+                objective: 'Use a background color to make your subtitle noticeable.',
+                type: 'css',
+                template: `h2 {\n  [1]: [2];\n}`,
+                dropdowns: {
+                    1: ['...', 'background-color', 'color', 'border'],
+                    2: ['...', '#fff3cd', '#333333', '1px solid']
+                },
+                answers: { 1: 'background-color', 2: '#fff3cd' }
+            },
+            {
+                id: 'elec-10',
+                title: 'Add an Email Link',
+                objective: 'Use the mailto protocol to let visitors contact you.',
+                type: 'html',
+                template: `<[1] [2]="mailto:hello@example.com">Email me</[3]>`,
+                dropdowns: {
+                    1: ['...', 'a', 'button', 'address'],
+                    2: ['...', 'href', 'src', 'action'],
+                    3: ['...', 'a', 'button', 'address']
+                },
+                answers: { 1: 'a', 2: 'href', 3: 'a' }
             }
         ];
 
@@ -404,15 +836,73 @@
         let coreIndex = 0;
         let isCorePhase = true;
         let currentLesson = null;
+        let currentLessonId = null;
         let availableElectives = [...electiveLessons];
+        let completedMissionCount = 0;
+        const totalMissionCount = coreLessons.length + electiveLessons.length;
+        const saveKey = 'webDevQuestProgressV2';
 
         function initGame() {
-            loadLesson(coreLessons[coreIndex]);
+            restoreGame();
+            if (isCorePhase) {
+                loadLesson(coreLessons[coreIndex]);
+            } else {
+                const savedLesson = [...coreLessons, ...electiveLessons].find(lesson => lesson.id === currentLessonId);
+                if (savedLesson) {
+                    loadLesson(savedLesson);
+                } else {
+                    showElectiveMenu();
+                }
+            }
             updateCompletedCodeDisplay();
+            updateProgress();
+        }
+
+        function saveGame() {
+            localStorage.setItem(saveKey, JSON.stringify({
+                completedHTML,
+                completedCSS,
+                coreIndex,
+                isCorePhase,
+                currentLessonId,
+                availableElectiveIds: availableElectives.map(lesson => lesson.id),
+                completedMissionCount
+            }));
+        }
+
+        function restoreGame() {
+            const savedState = localStorage.getItem(saveKey);
+            if (!savedState) {
+                return;
+            }
+
+            try {
+                const state = JSON.parse(savedState);
+                completedHTML = typeof state.completedHTML === 'string' ? state.completedHTML : '';
+                completedCSS = typeof state.completedCSS === 'string' ? state.completedCSS : '';
+                coreIndex = Number.isInteger(state.coreIndex) ? Math.min(Math.max(state.coreIndex, 0), coreLessons.length - 1) : 0;
+                isCorePhase = state.isCorePhase !== false;
+                currentLessonId = typeof state.currentLessonId === 'string' ? state.currentLessonId : null;
+                completedMissionCount = Number.isInteger(state.completedMissionCount) ? Math.min(Math.max(state.completedMissionCount, 0), totalMissionCount) : 0;
+
+                if (Array.isArray(state.availableElectiveIds)) {
+                    availableElectives = electiveLessons.filter(lesson => state.availableElectiveIds.includes(lesson.id));
+                }
+            } catch (error) {
+                localStorage.removeItem(saveKey);
+            }
+        }
+
+        function updateProgress() {
+            const percentage = Math.round((completedMissionCount / totalMissionCount) * 100);
+            document.getElementById('progress-count').innerText = `${completedMissionCount} / ${totalMissionCount}`;
+            document.getElementById('progress-bar').style.width = `${percentage}%`;
+            document.getElementById('progress-track').setAttribute('aria-valuenow', percentage);
         }
 
         function loadLesson(lesson) {
             currentLesson = lesson;
+            currentLessonId = lesson.id;
             document.getElementById('objective-panel').innerText = `${lesson.title} - ${lesson.objective}`;
             
             // Hide elective menu, show lesson code area
@@ -527,7 +1017,9 @@
                 completedCSS += finalCode + "\n\n";
             }
 
+            completedMissionCount++;
             updateCompletedCodeDisplay();
+            updateProgress();
 
             // Route to next lesson or elective menu
             if (isCorePhase) {
@@ -536,11 +1028,15 @@
                     loadLesson(coreLessons[coreIndex]);
                 } else {
                     isCorePhase = false;
+                    currentLessonId = null;
                     showElectiveMenu();
                 }
             } else {
+                currentLessonId = null;
                 showElectiveMenu();
             }
+
+            saveGame();
         }
 
         function updateCompletedCodeDisplay() {
@@ -598,6 +1094,7 @@
             availableElectives.splice(selectedIndex, 1);
             
             loadLesson(selectedLesson);
+            saveGame();
         }
 
         // Start the game when the window finishes loading
